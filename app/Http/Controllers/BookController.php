@@ -14,6 +14,8 @@ class BookController extends Controller
     public function index()
     {
         //
+        $books=\App\Book::all();
+        return view('index',compact('books'));
     }
 
     /**
@@ -37,10 +39,10 @@ class BookController extends Controller
     {
         //
         $book = new \App\Book;
-        $book->title = $request->get('title');
-        $book->penerbit = $request->get('penerbit');
-        $book->tahun_terbit = $request->get('tahun_terbit');
-        $book->pengarang = $request->get('pengarang');
+        $book->Judul = $request->get('Judul');
+        $book->Penerbit = $request->get('Penerbit');
+        $book->Tahun_Terbit = $request->get('Tahun_Terbit');
+        $book->Pengarang = $request->get('Pengarang');
         $book->save();
         
         return redirect('books')->with('success', 'Data buku telah ditambahkan');  
@@ -66,6 +68,8 @@ class BookController extends Controller
     public function edit($id)
     {
         //
+        $book = \App\Book::find($id);
+        return view('edit',compact('book','id'));
     }
 
     /**
@@ -89,5 +93,8 @@ class BookController extends Controller
     public function destroy($id)
     {
         //
+        $book = \App\Book::find($id);
+        $book->delete();
+        return redirect('books')->with('success','Data buku telah di hapus');
     }
 }
