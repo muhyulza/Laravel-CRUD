@@ -82,6 +82,13 @@ class BookController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $book= \App\Book::find($id);
+        $book->Judul = $request->get('Judul');
+        $book->Penerbit = $request->get('Penerbit');
+        $book->Tahun_Terbit = $request->get('Tahun_Terbit');
+        $book->Pengarang = $request->get('Pengarang');
+        $book->save();
+        return redirect('books')->with('success', 'Data buku telah diubah');
     }
 
     /**
